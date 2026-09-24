@@ -7,8 +7,7 @@
 ├── openid-provider   OP (未完成版、http://localhost:3101)
 ├── relying-party     RP (未完成版、http://localhost:3100)
 ├── packages/shared   共有型・定数
-├── compose.yaml      作業コンテナ + Redis 定義
-└── .devcontainer     Dev Container 定義ファイル
+└── .devcontainer     Dev Container 定義ファイル (作業コンテナ + Redis 定義含む)
 ```
 
 ## 必要なもの

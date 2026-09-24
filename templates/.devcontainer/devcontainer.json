@@ -1,8 +1,16 @@
 {
   "name": "Coding OIDC",
-  "dockerComposeFile": ["../compose.yaml"],
+  "dockerComposeFile": ["docker-compose.yaml"],
   "service": "app",
   "workspaceFolder": "/workspaces/coding-oidc",
+  "features": {
+    "ghcr.io/devcontainers/features/node:2": {
+      "version": "26.10.0"
+    },
+    "ghcr.io/devcontainers-extra/features/bun:1": {
+      "version": "1.4.2"
+    }
+  },
   "customizations": {
     "vscode": {
       "extensions": ["oven.bun-vscode", "vue.volar", "oxc.oxc-vscode"]
@@ -13,6 +21,6 @@
     "3101": { "label": "OpenID Provider", "onAutoForward": "notify" },
     "6379": { "label": "Redis", "onAutoForward": "silent" }
   },
-  "postCreateCommand": "mise trust && mise install && bun install",
+  "postCreateCommand": "bun install",
   "remoteUser": "vscode"
 }

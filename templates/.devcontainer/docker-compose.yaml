@@ -1,0 +1,26 @@
+services:
+  app:
+    image: "mcr.microsoft.com/devcontainers/base:bookworm"
+    volumes:
+      - "..:/workspaces/coding-oidc:cached"
+    command: "sleep infinity"
+    depends_on:
+      redis:
+        condition: "service_healthy"
+    environment:
+      REDIS_URL: "redis://redis:6379"
+
+  redis:
+    image: "redis:8-alpine"
+    ports:
+      - "6379:6379"
+    volumes:
+      - "coding-oidc-redis:/data"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: "5s"
+      timeout: "3s"
+      retries: 5
+
+volumes:
+  coding-oidc-redis:
