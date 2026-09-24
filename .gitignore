@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.vitepress/cache
+.vitepress/dist
+
+templates/node_modules/
+templates/dist/
+templates/openid-provider/node_modules/
+templates/openid-provider/dist/
+templates/openid-provider/.tanstack/
+templates/relying-party/node_modules/
+templates/relying-party/dist/
+templates/relying-party/.tanstack/
+templates/packages/*/node_modules/
+templates/packages/*/dist/
