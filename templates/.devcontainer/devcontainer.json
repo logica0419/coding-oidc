@@ -19,7 +19,7 @@
   "portsAttributes": {
     "3100": { "label": "Relying Party", "onAutoForward": "notify" },
     "3101": { "label": "OpenID Provider", "onAutoForward": "notify" },
-    "6379": { "label": "Redis", "onAutoForward": "silent" }
+    "6379": { "label": "Valkey", "onAutoForward": "silent" }
   },
   "postCreateCommand": "bun install",
   "remoteUser": "vscode"

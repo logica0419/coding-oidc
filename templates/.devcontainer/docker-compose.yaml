@@ -5,22 +5,22 @@ services:
       - "..:/workspaces/coding-oidc:cached"
     command: "sleep infinity"
     depends_on:
-      redis:
+      valkey:
         condition: "service_healthy"
     environment:
-      REDIS_URL: "redis://redis:6379"
+      VALKEY_URL: "redis://valkey:6379"
 
-  redis:
-    image: "redis:8-alpine"
+  valkey:
+    image: "valkey/valkey:9.1.2-alpine"
     ports:
       - "6379:6379"
     volumes:
-      - "coding-oidc-redis:/data"
+      - "coding-oidc-valkey:/data"
     healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
+      test: ["CMD", "valkey-cli", "ping"]
       interval: "5s"
       timeout: "3s"
       retries: 5
 
 volumes:
-  coding-oidc-redis:
+  coding-oidc-valkey:

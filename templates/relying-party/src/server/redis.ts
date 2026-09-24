@@ -4,7 +4,7 @@ let client: Redis | undefined;
 
 export function getRedis(): Redis {
   if (client === undefined) {
-    client = new Redis(process.env.REDIS_URL ?? "redis://localhost:6379", {
+    client = new Redis(process.env.VALKEY_URL ?? "redis://localhost:6379", {
       maxRetriesPerRequest: 3,
     });
   }

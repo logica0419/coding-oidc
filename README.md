@@ -13,7 +13,7 @@ templates
 ├── openid-provider   OP (未完成版)
 ├── relying-party     RP (未完成版)
 ├── packages/shared   共有型・定数
-└── .devcontainer     Dev Container 定義ファイル (作業コンテナ + Redis 定義含む)
+└── .devcontainer     Dev Container 定義ファイル (作業コンテナ + Valkey 定義含む)
 ```
 
 `init.sh` でこのディレクトリだけを取り出して使います。
