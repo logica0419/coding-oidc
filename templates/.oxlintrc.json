@@ -1,0 +1,40 @@
+{
+  "$schema": "../node_modules/oxlint/configuration_schema.json",
+  "plugins": ["import", "typescript", "unicorn", "oxc"],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "error",
+    "pedantic": "off",
+    "perf": "warn",
+    "style": "warn",
+    "restriction": "off",
+    "nursery": "off"
+  },
+  "rules": {
+    "no-unused-vars": "error",
+    "func-style": "off",
+    "prefer-default-export": "off",
+    "no-named-export": "off",
+    "init-declarations": "off",
+    "one-var": "off",
+    "sort-imports": "off",
+    "sort-keys": "off",
+    "no-magic-numbers": "off",
+    "group-exports": "off",
+    "no-nodejs-modules": "off",
+    "filename-case": "off",
+    "capitalized-comments": "off",
+    "text-encoding-identifier-case": "off",
+    "no-duplicate-imports": "off",
+    "consistent-type-specifier-style": "off"
+  },
+  "ignorePatterns": ["**/dist/**", "**/routeTree.gen.ts", "**/*.gen.ts", "docs/.vitepress/dist/**"],
+  "overrides": [
+    {
+      "files": ["**/*.vue"],
+      "rules": {
+        "no-unused-vars": "off"
+      }
+    }
+  ]
+}

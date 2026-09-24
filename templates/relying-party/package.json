@@ -1,0 +1,29 @@
+{
+  "name": "@coding-oidc/relying-party",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev --port 3100",
+    "build": "vite build && vue-tsc --noEmit -p tsconfig.json",
+    "start": "node ./server.mjs",
+    "check": "vue-tsc --noEmit -p tsconfig.json"
+  },
+  "dependencies": {
+    "@coding-oidc/shared": "workspace:*",
+    "@tanstack/vue-query": "5.103.2",
+    "@tanstack/vue-router": "1.170.35",
+    "@tanstack/vue-start": "1.168.54",
+    "ioredis": "5.8.2",
+    "jose": "6.1.0",
+    "vue": "3.5.16"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "6.0.5",
+    "@vitejs/plugin-vue-jsx": "5.1.5",
+    "srvx": "1.0.5",
+    "typescript": "6.0.3",
+    "vite": "8.0.14",
+    "vue-tsc": "3.3.8"
+  }
+}
