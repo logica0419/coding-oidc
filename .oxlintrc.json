@@ -28,7 +28,14 @@
     "no-duplicate-imports": "off",
     "consistent-type-specifier-style": "off"
   },
-  "ignorePatterns": ["**/dist/**", "**/routeTree.gen.ts", "**/*.gen.ts", "docs/.vitepress/dist/**"],
+  "ignorePatterns": [
+    "**/dist/**",
+    "**/.nuxt/**",
+    "**/.output/**",
+    "**/routeTree.gen.ts",
+    "**/*.gen.ts",
+    "docs/.vitepress/dist/**"
+  ],
   "overrides": [
     {
       "files": ["**/*.vue"],
