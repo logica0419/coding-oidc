@@ -1,26 +1,17 @@
 {
-  "name": "coding-oidc-templates",
+  "name": "templates",
   "private": true,
   "workspaces": [
-    "openid-provider",
-    "relying-party",
     "packages/*"
   ],
   "type": "module",
   "scripts": {
-    "predev": "bun install",
-    "dev": "concurrently --names \"op,rp\" \"bun --filter '@coding-oidc/openid-provider' dev\" \"bun --filter '@coding-oidc/relying-party' dev\"",
-    "predev:op": "bun install",
+    "dev": "concurrently --names \"op,rp\" \"bun run dev:op\" \"bun run dev:rp\"",
     "dev:op": "bun --filter '@coding-oidc/openid-provider' dev",
-    "predev:rp": "bun install",
     "dev:rp": "bun --filter '@coding-oidc/relying-party' dev",
-    "prebuild": "bun install -p",
-    "build": "bun --filter '@coding-oidc/openid-provider' build && bun --filter '@coding-oidc/relying-party' build",
-    "precheck": "bun install",
-    "check": "bun --filter '@coding-oidc/*' check",
-    "prelint": "bun install",
+    "build": "bun --filter '*' build",
+    "check": "bun --filter '*' check",
     "lint": "oxlint",
-    "preformat": "bun install",
     "format": "oxfmt --write"
   },
   "devDependencies": {

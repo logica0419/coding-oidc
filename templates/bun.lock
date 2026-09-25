@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "coding-oidc-templates",
+      "name": "templates",
       "devDependencies": {
         "@types/bun": "1.4.2",
         "concurrently": "9.2.1",
@@ -12,8 +12,29 @@
         "typescript": "6.0.3",
       },
     },
-    "openid-provider": {
+    "packages/openid-provider": {
       "name": "@coding-oidc/openid-provider",
+      "version": "0.0.0",
+      "dependencies": {
+        "@coding-oidc/shared": "workspace:*",
+        "@tanstack/vue-query": "5.103.2",
+        "@tanstack/vue-router": "1.170.35",
+        "@tanstack/vue-start": "1.168.54",
+        "ioredis": "5.8.2",
+        "jose": "6.1.0",
+        "vue": "3.5.16",
+      },
+      "devDependencies": {
+        "@vitejs/plugin-vue": "6.0.5",
+        "@vitejs/plugin-vue-jsx": "5.1.5",
+        "srvx": "1.0.5",
+        "typescript": "6.0.3",
+        "vite": "8.0.14",
+        "vue-tsc": "3.3.8",
+      },
+    },
+    "packages/relying-party": {
+      "name": "@coding-oidc/relying-party",
       "version": "0.0.0",
       "dependencies": {
         "@coding-oidc/shared": "workspace:*",
@@ -37,27 +58,6 @@
       "name": "@coding-oidc/shared",
       "version": "0.0.0",
       "devDependencies": {
-        "vue-tsc": "3.3.8",
-      },
-    },
-    "relying-party": {
-      "name": "@coding-oidc/relying-party",
-      "version": "0.0.0",
-      "dependencies": {
-        "@coding-oidc/shared": "workspace:*",
-        "@tanstack/vue-query": "5.103.2",
-        "@tanstack/vue-router": "1.170.35",
-        "@tanstack/vue-start": "1.168.54",
-        "ioredis": "5.8.2",
-        "jose": "6.1.0",
-        "vue": "3.5.16",
-      },
-      "devDependencies": {
-        "@vitejs/plugin-vue": "6.0.5",
-        "@vitejs/plugin-vue-jsx": "5.1.5",
-        "srvx": "1.0.5",
-        "typescript": "6.0.3",
-        "vite": "8.0.14",
         "vue-tsc": "3.3.8",
       },
     },
@@ -115,9 +115,9 @@
 
     "@babel/types": ["@babel/types@7.29.8", "", { "dependencies": { "@babel/helper-string-parser": "^7.29.7", "@babel/helper-validator-identifier": "^7.29.7" } }, "sha512-Vj1jF3cPfxg7OAfoI7QnVKLoILlm2JF9pnVHrX8qx7AHMiYWT+NDAA7jChlNgRS4WTLc/fD1lXLmPixluj+3Gg=="],
 
-    "@coding-oidc/openid-provider": ["@coding-oidc/openid-provider@workspace:openid-provider"],
+    "@coding-oidc/openid-provider": ["@coding-oidc/openid-provider@workspace:packages/openid-provider"],
 
-    "@coding-oidc/relying-party": ["@coding-oidc/relying-party@workspace:relying-party"],
+    "@coding-oidc/relying-party": ["@coding-oidc/relying-party@workspace:packages/relying-party"],
 
     "@coding-oidc/shared": ["@coding-oidc/shared@workspace:packages/shared"],
 
