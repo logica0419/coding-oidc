@@ -16,10 +16,10 @@ templates
 └── .devcontainer              Dev Container 定義ファイル (作業コンテナ + Valkey 定義含む)
 ```
 
-`init.sh` でこのディレクトリだけを取り出して使います。
+`init.sh` でこのディレクトリの内容をカレントディレクトリに取り出して使います。
 
 ```bash
-./init.sh /path/to/workdir
+./init.sh
 ```
 
 ## `/reference`: 参考実装
