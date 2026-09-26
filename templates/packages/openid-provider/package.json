@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "nuxt dev --port 3101",
-    "build": "nuxt build",
-    "preview": "nuxt preview --port 3101",
-    "check": "nuxt typecheck"
+    "dev": "bun -b nuxt dev --port 3101",
+    "build": "bun -b nuxt build",
+    "preview": "bun -b nuxt preview --port 3101",
+    "check": "bun -b nuxt typecheck"
   },
   "dependencies": {
     "@coding-oidc/shared": "workspace:*",

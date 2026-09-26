@@ -11,8 +11,8 @@
     "dev:rp": "bun --filter '@coding-oidc/relying-party' dev",
     "build": "bun --filter '*' build",
     "check": "bun --filter '*' check",
-    "lint": "oxlint",
-    "format": "oxfmt --write"
+    "lint": "bun -b oxlint",
+    "format": "bun -b oxfmt --write"
   },
   "devDependencies": {
     "concurrently": "9.2.1",

@@ -21,9 +21,9 @@
     "precheck:templates": "bun install",
     "check:templates": "bun --filter 'templates' check",
     "prelint": "bun install",
-    "lint": "oxlint",
+    "lint": "bun -b oxlint",
     "preformat": "bun install",
-    "format": "oxfmt --write"
+    "format": "bun -b oxfmt --write"
   },
   "devDependencies": {
     "oxfmt": "0.68.0",
