@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "bun -b nuxt dev --port 3100",
-    "build": "bun -b nuxt build",
+    "build": "bun -b nuxt prepare && bun -b nuxt build",
     "preview": "bun -b nuxt preview --port 3100",
     "check": "bun -b vize check"
   },
