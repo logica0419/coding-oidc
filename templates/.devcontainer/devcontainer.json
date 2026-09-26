@@ -13,7 +13,7 @@
   },
   "customizations": {
     "vscode": {
-      "extensions": ["oven.bun-vscode", "vue.volar", "oxc.oxc-vscode"]
+      "extensions": ["oven.bun-vscode", "ubugeeei.vize", "oxc.oxc-vscode"]
     }
   },
   "portsAttributes": {
