@@ -20,6 +20,7 @@
         "oxc.oxc-vscode"
       ],
       "settings": {
+        "vize.serverPath": "/workspaces/coding-oidc/node_modules/.bin/vize",
         "search.exclude": {
           "**/node_modules": true,
           "**/.nuxt": true,
