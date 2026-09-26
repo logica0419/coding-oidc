@@ -24,10 +24,13 @@
     "lint": "bun run lint:oxlint && bun run lint:vize",
     "lint:oxlint": "bun -b oxlint --fix",
     "lint:vize": "bun -b vize lint --fix",
+    "preknip": "bun install",
+    "knip": "bun -b knip-bun",
     "preformat": "bun install",
     "format": "bun -b vize fmt --write \"**/*.vue\" \"**/*.ts\" && bun -b oxfmt --write"
   },
   "devDependencies": {
+    "knip": "6.38.0",
     "oxfmt": "0.68.0",
     "oxlint": "1.83.0",
     "oxlint-tsgolint": "7.0.2003",

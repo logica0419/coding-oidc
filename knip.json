@@ -1,0 +1,14 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "ignoreFiles": [
+    "templates/packages/*/app/utils/workshop.ts",
+    "templates/packages/*/server/utils/workshop.ts",
+    "templates/packages/*/shared/utils/workshop.ts"
+  ],
+  "ignoreDependencies": ["oxfmt", "oxlint", "oxlint-tsgolint", "vize"],
+  "workspaces": {
+    "templates/packages/relying-party": {
+      "ignoreDependencies": ["@coding-oidc/shared"]
+    }
+  }
+}
