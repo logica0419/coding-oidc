@@ -36,6 +36,10 @@ export const base64Decode = (input: string): string => {
   return textDecoder.decode(base64UrlToBytes(input));
 };
 
-export const createHash = (input: string): string => {
-  return textDecoder.decode(sha256(textEncoder.encode(input)));
+export const base64EncodeBytes = (input: Uint8Array): string => {
+  return bytesToBase64Url(input);
+};
+
+export const createHash = (input: string): Uint8Array => {
+  return sha256(textEncoder.encode(input));
 };

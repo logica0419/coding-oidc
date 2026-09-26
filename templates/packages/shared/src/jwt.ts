@@ -33,7 +33,6 @@ const getSigningKeys = async (): Promise<CachedKeys> => {
 export interface IdTokenClaims {
   sub: string;
   name: string;
-  email: string;
 }
 
 export interface AccessTokenClaims {
@@ -69,7 +68,7 @@ const resolveVerifyKey = async (
 
 export const createIdToken = async (claims: IdTokenClaims): Promise<string> => {
   const { privateKey } = await getSigningKeys();
-  return new SignJWT({ name: claims.name, email: claims.email })
+  return new SignJWT({ name: claims.name })
     .setProtectedHeader({ alg: ALGORITHM, kid: KEY_ID })
     .setIssuer(OP_ISSUER)
     .setAudience(CLIENT_ID)
@@ -91,7 +90,6 @@ export const verifyIdToken = async (
   return {
     sub: assertClaim(payload, "sub"),
     name: assertClaim(payload, "name"),
-    email: assertClaim(payload, "email"),
   };
 };
 

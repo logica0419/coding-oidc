@@ -26,12 +26,16 @@ export interface AuthCodePayload {
 export interface SessionPayload {
   sub: string;
   name: string;
-  email: string;
 }
 
 export interface LoginStatePayload {
   codeVerifier: string;
   nonce: string;
+}
+
+export interface StoredUser {
+  id: string;
+  name: string;
 }
 
 const key = (service: string, category: string, id: string): string => {
@@ -131,4 +135,16 @@ export const setLoginState = async (state: string, payload: LoginStatePayload): 
 
 export const deleteLoginState = async (state: string): Promise<void> => {
   await getRedis().del(key("rp", "login", state));
+};
+
+export const getStoredUser = (id: string): Promise<StoredUser> => {
+  return getOneOrThrow<StoredUser>(key("op", "user", id), "user not found");
+};
+
+export const getAllStoredUsers = (): Promise<StoredUser[]> => {
+  return getAll<StoredUser>("op-user-*");
+};
+
+export const setStoredUser = async (id: string, payload: StoredUser): Promise<void> => {
+  await getRedis().set(key("op", "user", id), JSON.stringify(payload));
 };

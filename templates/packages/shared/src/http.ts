@@ -8,13 +8,15 @@ export interface AuthorizeQuery {
   code_challenge_method: string;
 }
 
-export interface TokenRequest {
+export interface TokenForm {
   grant_type: string;
   code: string;
   redirect_uri: string;
   client_id: string;
-  code_verifier: string;
+  code_verifier?: string;
 }
+
+export type TokenRequest = TokenForm;
 
 export interface TokenResponse {
   access_token: string;
@@ -26,7 +28,6 @@ export interface TokenResponse {
 export interface UserInfoResponse {
   sub: string;
   name: string;
-  email: string;
 }
 
 export interface DiscoveryDocument {
@@ -51,15 +52,26 @@ export const getRequest = async <Response>(url: string): Promise<Response> => {
 };
 
 export const postRequest = async <Response>(url: string, body: unknown): Promise<Response> => {
+  const isForm = body instanceof URLSearchParams;
   const res = await fetch(url, {
     method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify(body),
+    headers: isForm
+      ? { "content-type": "application/x-www-form-urlencoded" }
+      : { "content-type": "application/json" },
+    body: isForm ? body.toString() : JSON.stringify(body),
   });
   if (!res.ok) {
     throw new Error(`POST ${url} failed: ${res.status}`);
   }
   return (await res.json()) as Response;
+};
+
+export const postForm = async <Response>(
+  url: string,
+  form: Record<string, string>,
+): Promise<Response> => {
+  const params = new URLSearchParams(form);
+  return postRequest<Response>(url, params);
 };
 
 export const redirectTo = (url: string): void => {
