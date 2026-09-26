@@ -18,5 +18,8 @@
     "concurrently": "9.2.1",
     "oxfmt": "0.68.0",
     "oxlint": "1.83.0"
+  },
+  "overrides": {
+    "typescript": "npm:typescript-native-bridge@6.0.3-bridge.17.tsgo.7.0.2"
   }
 }
