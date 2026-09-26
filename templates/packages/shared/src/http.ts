@@ -41,3 +41,28 @@ export interface DiscoveryDocument {
   scopes_supported: string[];
   code_challenge_methods_supported: string[];
 }
+
+export const getRequest = async <Response>(url: string): Promise<Response> => {
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`GET ${url} failed: ${res.status}`);
+  }
+  return (await res.json()) as Response;
+};
+
+export const postRequest = async <Response>(url: string, body: unknown): Promise<Response> => {
+  const res = await fetch(url, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    throw new Error(`POST ${url} failed: ${res.status}`);
+  }
+  return (await res.json()) as Response;
+};
+
+export const redirectTo = (url: string): void => {
+  const location = globalThis.location as unknown as { href: string };
+  location.href = url;
+};
