@@ -1,4 +1,11 @@
 {
   "$schema": "../node_modules/oxfmt/configuration_schema.json",
-  "sortImports": true
+  "sortImports": true,
+  "ignorePatterns": [
+    "**/node_modules/**",
+    "**/.nuxt/**",
+    "**/.output/**",
+    "**/dist/**",
+    "**/.data/**"
+  ]
 }

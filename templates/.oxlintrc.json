@@ -1,5 +1,12 @@
 {
   "$schema": "../node_modules/oxlint/configuration_schema.json",
+  "ignorePatterns": [
+    "**/node_modules/**",
+    "**/.nuxt/**",
+    "**/.output/**",
+    "**/dist/**",
+    "**/.data/**"
+  ],
   "categories": {
     "correctness": "error"
   },

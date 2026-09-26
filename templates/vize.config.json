@@ -1,5 +1,6 @@
 {
   "$schema": "./node_modules/vize/schemas/vize.config.schema.json",
+  "ignores": ["**/node_modules/**", "**/.nuxt/**", "**/.output/**", "**/dist/**", "**/.data/**"],
   "linter": {
     "preset": "happy-path"
   },
