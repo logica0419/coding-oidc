@@ -11,15 +11,16 @@
     "dev:rp": "bun --filter '@coding-oidc/relying-party' dev",
     "build": "bun --filter '*' build",
     "check": "bun --filter '*' check",
-    "lint": "bun -b oxlint",
-    "format": "bun -b oxfmt --write"
+    "lint": "bun run lint:oxlint && bun run lint:vize",
+    "lint:oxlint": "bun -b oxlint --fix",
+    "lint:vize": "bun -b vize lint --fix",
+    "format": "bun -b vize fmt --write \"**/*.vue\" \"**/*.ts\" && bun -b oxfmt --write"
   },
   "devDependencies": {
     "concurrently": "9.2.1",
     "oxfmt": "0.68.0",
-    "oxlint": "1.83.0"
-  },
-  "overrides": {
-    "typescript": "npm:typescript-native-bridge@6.0.3-bridge.17.tsgo.7.0.2"
+    "oxlint": "1.83.0",
+    "typescript": "7.0.2",
+    "vize": "0.428.1"
   }
 }

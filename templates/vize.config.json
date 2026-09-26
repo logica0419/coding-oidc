@@ -1,0 +1,10 @@
+{
+  "$schema": "./node_modules/vize/schemas/vize.config.schema.json",
+  "linter": {
+    "preset": "happy-path"
+  },
+  "formatter": {
+    "normalizeDirectiveShorthands": true,
+    "singleAttributePerLine": true
+  }
+}

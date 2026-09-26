@@ -21,16 +21,17 @@
     "precheck:templates": "bun install",
     "check:templates": "bun --filter 'templates' check",
     "prelint": "bun install",
-    "lint": "bun -b oxlint",
+    "lint": "bun run lint:oxlint && bun run lint:vize",
+    "lint:oxlint": "bun -b oxlint --fix",
+    "lint:vize": "bun -b vize lint --fix",
     "preformat": "bun install",
-    "format": "bun -b oxfmt --write"
+    "format": "bun -b vize fmt --write \"**/*.vue\" \"**/*.ts\" && bun -b oxfmt --write"
   },
   "devDependencies": {
     "oxfmt": "0.68.0",
     "oxlint": "1.83.0",
-    "oxlint-tsgolint": "7.0.2003"
-  },
-  "overrides": {
-    "typescript": "npm:typescript-native-bridge@6.0.3-bridge.17.tsgo.7.0.2"
+    "oxlint-tsgolint": "7.0.2003",
+    "typescript": "7.0.2",
+    "vize": "0.428.1"
   }
 }
