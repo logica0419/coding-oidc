@@ -16,10 +16,6 @@ concurrency:
   group: pages
   cancel-in-progress: false
 
-defaults:
-  run:
-    working-directory: ./docs
-
 jobs:
   build:
     name: Build
@@ -33,7 +29,9 @@ jobs:
         id: mod-cache
         uses: actions/cache@v6.1.0
         with:
-          path: ./docs/node_modules
+          path: |
+            ./node_modules
+            ~/.bun/install/cache
           key: mod-${{ hashFiles('**/bun.lock') }}
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
@@ -45,7 +43,7 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v6
       - name: Build
-        run: bun run build
+        run: bun run build:docs
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5
         with:
