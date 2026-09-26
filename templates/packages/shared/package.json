@@ -9,7 +9,13 @@
   "scripts": {
     "check": "vue-tsc --noEmit -p tsconfig.json"
   },
+  "dependencies": {
+    "@noble/hashes": "2.4.0",
+    "ioredis": "6.0.0",
+    "jose": "6.1.0"
+  },
   "devDependencies": {
+    "@types/node": "26.6.3",
     "vue-tsc": "3.3.8"
   }
 }
