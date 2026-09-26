@@ -4,38 +4,33 @@
   "categories": {
     "correctness": "error",
     "suspicious": "error",
-    "pedantic": "off",
-    "perf": "warn",
-    "style": "warn",
-    "restriction": "off",
-    "nursery": "off"
+    "perf": "error"
+  },
+  "options": {
+    "typeAware": true,
+    "typeCheck": true
   },
   "rules": {
-    "no-unused-vars": "error",
-    "func-style": "off",
-    "prefer-default-export": "off",
-    "no-named-export": "off",
-    "init-declarations": "off",
-    "one-var": "off",
-    "sort-imports": "off",
-    "sort-keys": "off",
-    "no-magic-numbers": "off",
-    "group-exports": "off",
-    "no-nodejs-modules": "off",
-    "filename-case": "off",
-    "capitalized-comments": "off",
-    "text-encoding-identifier-case": "off",
-    "no-duplicate-imports": "off",
-    "consistent-type-specifier-style": "off"
+    "import/no-unassigned-import": "off",
+    "import/no-named-as-default-member": "off",
+    "typescript/await-thenable": "error",
+    "typescript/no-floating-promises": "error",
+    "typescript/no-misused-promises": "error",
+    "typescript/no-unsafe-argument": "error",
+    "typescript/no-unsafe-assignment": "error",
+    "typescript/no-unsafe-call": "error",
+    "typescript/no-unsafe-member-access": "error",
+    "typescript/no-unsafe-return": "error",
+    "typescript/no-unsafe-type-assertion": "error",
+    "typescript/no-unsafe-enum-comparison": "error",
+    "typescript/no-unsafe-unary-minus": "error",
+    "typescript/no-implied-eval": "error",
+    "typescript/no-base-to-string": "error",
+    "typescript/no-for-in-array": "error",
+    "typescript/only-throw-error": "error",
+    "typescript/prefer-promise-reject-errors": "error",
+    "typescript/unbound-method": "error"
   },
-  "ignorePatterns": [
-    "**/dist/**",
-    "**/.nuxt/**",
-    "**/.output/**",
-    "**/routeTree.gen.ts",
-    "**/*.gen.ts",
-    "docs/.vitepress/dist/**"
-  ],
   "overrides": [
     {
       "files": ["**/*.vue"],
