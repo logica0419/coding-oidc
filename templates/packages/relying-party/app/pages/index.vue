@@ -9,9 +9,3 @@ const { data } = await useFetch<StatusResponse>("/api/status");
     <pre>{{ data }}</pre>
   </div>
 </template>
-
-<style scoped>
-h2 {
-  font-size: 1.25rem;
-}
-</style>
