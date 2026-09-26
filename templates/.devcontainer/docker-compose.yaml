@@ -3,6 +3,9 @@ services:
     image: "mcr.microsoft.com/devcontainers/base:bookworm"
     volumes:
       - "..:/workspaces/coding-oidc:cached"
+    ports:
+      - "3100:3100"
+      - "3101:3101"
     command: "sleep infinity"
     depends_on:
       valkey:

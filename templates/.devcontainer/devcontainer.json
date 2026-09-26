@@ -21,6 +21,6 @@
     "3101": { "label": "OpenID Provider", "onAutoForward": "notify" },
     "6379": { "label": "Valkey", "onAutoForward": "silent" }
   },
-  "postCreateCommand": "bun install",
+  "postCreateCommand": "bun install && bun run build",
   "remoteUser": "vscode"
 }
