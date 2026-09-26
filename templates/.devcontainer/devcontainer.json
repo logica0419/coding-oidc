@@ -13,7 +13,7 @@
   },
   "customizations": {
     "vscode": {
-      "extensions": ["oven.bun-vscode", "ubugeeei.vize", "oxc.oxc-vscode"]
+      "extensions": ["oven.bun-vscode", "ubugeeei.vize", "typescriptteam.native-preview", "oxc.oxc-vscode"]
     }
   },
   "portsAttributes": {
