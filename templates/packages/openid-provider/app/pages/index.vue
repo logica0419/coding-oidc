@@ -1,27 +1,17 @@
 <script setup lang="ts">
-interface IndexInput {
-  users: { id: string; name: string }[];
-}
-
-interface IndexOutput {
-  example: string;
-}
-
-// TODO: Phase 1: OAuth
-const loadUsers = async (): Promise<IndexInput> => {
-  return getRequest<IndexInput>("/api/users");
-};
-
-// TODO: Phase 1: OAuth
-const callExample = async (): Promise<IndexOutput> => {
-  return getRequest<IndexOutput>("/api/example");
-};
-
-const { data: usersData } = await useFetch<IndexInput>("/api/users");
+const { data: usersData } = await useFetch<UsersResponse>("/api/users");
 const exampleResult = ref("");
-const callExampleButton = async (): Promise<void> => {
-  const result = await callExample();
-  exampleResult.value = result.example;
+const exampleError = ref("");
+
+const exampleButton = async (): Promise<void> => {
+  exampleError.value = "";
+
+  try {
+    const result = await getRequest<ExampleResponse>("/api/example");
+    exampleResult.value = result.message;
+  } catch (error) {
+    exampleError.value = error instanceof Error ? error.message : "example failed";
+  }
 };
 </script>
 
@@ -29,9 +19,10 @@ const callExampleButton = async (): Promise<void> => {
   <div>
     <h2>OpenID Provider</h2>
     <ul>
-      <li v-for="user in usersData?.users ?? []" :key="user.id">{{ user.name }} ({{ user.id }})</li>
+      <li v-for="user in usersData ?? []" :key="user.id">{{ user.name }} ({{ user.id }})</li>
     </ul>
-    <button type="button" @click="callExampleButton">/api/example にアクセスする</button>
+    <button type="button" @click="exampleButton">/api/example にアクセスする</button>
     <pre>{{ exampleResult }}</pre>
+    <p v-if="exampleError !== ''">{{ exampleError }}</p>
   </div>
 </template>

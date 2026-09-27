@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "bun -b nuxt dev --port 3101",
+    "dev": "bun -b nuxt dev --port 3001",
     "build": "bun -b nuxt prepare && bun -b nuxt build",
-    "preview": "bun -b nuxt preview --port 3101",
+    "preview": "bun -b nuxt preview --port 3001",
     "check": "bun -b vize check"
   },
   "dependencies": {
