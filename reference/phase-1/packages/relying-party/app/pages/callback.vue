@@ -9,12 +9,8 @@ const result = ref("");
 const errorMessage = ref("");
 
 const onExchange = async (): Promise<void> => {
-  const code = route.query.code;
-  const state = route.query.state;
-
-  if (typeof code !== "string" || typeof state !== "string") {
-    return;
-  }
+  const code = pickString(route.query, "code");
+  const state = pickString(route.query, "state");
 
   try {
     const response = await exchangeCode(code, state);
