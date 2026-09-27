@@ -1,24 +1,28 @@
 <script setup lang="ts">
-interface CodeResponse {
-  message: string;
-}
-
 // TODO: Phase 1: OAuth
-const exchangeCode = async (code: string, state: string): Promise<CodeResponse> => {
-  return postRequest<CodeResponse>("/auth/code", { code, state });
+const exchangeCode = async (code: string): Promise<ExchangeResponse> => {
+  return { message: "" };
 };
 
 const route = useRoute();
 const result = ref("");
+const errorMessage = ref("");
+
 const onExchange = async (): Promise<void> => {
   const code = route.query.code;
-  const state = route.query.state;
-  if (typeof code !== "string" || typeof state !== "string") {
+
+  if (typeof code !== "string") {
     return;
   }
-  const response = await exchangeCode(code, state);
-  result.value = response.message;
+
+  try {
+    const response = await exchangeCode(code);
+    result.value = response.message;
+  } catch (error) {
+    errorMessage.value = error instanceof Error ? error.message : "exchange failed";
+  }
 };
+
 const goHome = (): void => {
   redirectTo("/");
 };
@@ -29,6 +33,7 @@ const goHome = (): void => {
     <h2>OAuth/OIDC コールバックページ</h2>
     <button type="button" @click="onExchange">コードをトークンに交換する</button>
     <pre>{{ result }}</pre>
+    <p v-if="errorMessage !== ''">{{ errorMessage }}</p>
     <button type="button" @click="goHome">ホームに戻る</button>
   </div>
 </template>
