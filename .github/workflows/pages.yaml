@@ -25,20 +25,11 @@ jobs:
         uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - name: Set Mod Cache
-        id: mod-cache
-        uses: actions/cache@v6.1.0
-        with:
-          path: |
-            ./node_modules
-            ~/.bun/install/cache
-          key: mod-${{ hashFiles('**/bun.lock') }}
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
       - name: Module Download
-        if: steps.mod-cache.outputs.cache-hit != 'true'
         run: bun install
       - name: Setup Pages
         uses: actions/configure-pages@v6
