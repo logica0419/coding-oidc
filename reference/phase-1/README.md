@@ -9,8 +9,8 @@ bun install
 bun run dev
 ```
 
-- OP: <http://localhost:3101>
-- RP: <http://localhost:3100>
+- OP: <http://localhost:3001>
+- RP: <http://localhost:3000>
 
 ## 実装されている機能
 

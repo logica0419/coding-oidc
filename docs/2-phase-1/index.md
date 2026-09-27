@@ -10,7 +10,7 @@ OAuth 2.0 の認可コードフローを実装します。
 
 ## 今の状態確認
 
-`bun run dev` で OP と RP を起動して、<http://localhost:3100> と <http://localhost:3101> にアクセスしてみましょう。
+`bun run dev` で OP と RP を起動して、<http://localhost:3000> と <http://localhost:3001> にアクセスしてみましょう。
 
 - RP の「opを使ってログインする」ボタンを押しても何も起きません（`startLogin` が空実装のため）
 - OP の認可ページで「許可する」を押しても何も起きません（`grantAccess` が空実装のため）
