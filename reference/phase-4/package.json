@@ -1,0 +1,17 @@
+{
+  "name": "phase-4",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently --names \"op,rp\" \"bun run dev:op\" \"bun run dev:rp\"",
+    "dev:op": "bun --filter '@coding-oidc/openid-provider' dev",
+    "dev:rp": "bun --filter '@coding-oidc/relying-party' dev",
+    "build": "bun --filter '*' build"
+  },
+  "devDependencies": {
+    "concurrently": "9.2.1"
+  }
+}
