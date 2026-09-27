@@ -15,7 +15,7 @@ code を受け取って、token endpoint にリクエストして、access token
 
 ### 実装手順
 
-1. `input.code` が空文字列なら、エラーを投げる
+1. `input.code` が空文字列なら、エラーを`throw new Error()`する
 2. `postRequest` で token endpoint (`http://localhost:3001/token`) に POST する
    - `grant_type: "authorization_code"`、`code: input.code`、`client_id: "rp-demo"` を送る
    - フォーム形式で送る
@@ -75,16 +75,19 @@ await setUserSession(event, {
 const exchangeLogic = async (event: H3Event, input: ExchangeInput): Promise<ExchangeResponse> => {
   return { message: "" }; // [!code --]
 
-  if (input.code === "") { // [!code ++]
+  if (input.code === "") {
+    // [!code ++]
     throw new Error("missing code"); // [!code ++]
   } // [!code ++]
 
   const token = // [!code ++]
     await postRequest<TokenResponse> // [!code ++]
     // [!code ++]
-    ( // [!code ++]
+    (
+      // [!code ++]
       "http://localhost:3001/token", // [!code ++]
-      { // [!code ++]
+      {
+        // [!code ++]
         grant_type: "authorization_code", // [!code ++]
         code: input.code, // [!code ++]
         client_id: "rp-demo", // [!code ++]
@@ -92,7 +95,8 @@ const exchangeLogic = async (event: H3Event, input: ExchangeInput): Promise<Exch
       true, // [!code ++]
     ); // [!code ++]
 
-  await setUserSession(event, { // [!code ++]
+  await setUserSession(event, {
+    // [!code ++]
     accessToken: token.access_token, // [!code ++]
   }); // [!code ++]
 

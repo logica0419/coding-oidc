@@ -17,7 +17,7 @@ state を auth code に保存し、リダイレクト URL にも state を付け
 Phase 1 の `consentLogic` を前提に、以下の差分を追加します。検証・ユーザー取得・code 生成は Phase 1 と同じです。
 
 1. Phase 1 と同じ検証（`responseType` / `clientId` / `scope` / `userId`）を行う（変更なし）
-2. （追加）`input.state` が空文字列なら、`invalid_request` を投げる
+2. （追加）`input.state` が空文字列なら、`invalid_request` を`throw new Error()`する
 3. Phase 1 と同じく `findUser` でユーザーを取得し、`randomString(32)` で code を作る（変更なし）
 4. （変更）`setAuthCode` の保存内容に `state: input.state` を追加する（他は Phase 1 と同じ）
 5. （変更）リダイレクト URL に `state` を追加する（`code` の付与は Phase 1 と同じ）

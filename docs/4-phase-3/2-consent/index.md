@@ -17,7 +17,7 @@ code_challenge が必須で、code_challenge_method が S256 であることを�
 Phase 2 の `consentLogic` を前提に、以下の差分を追加します。既存の検証・ユーザー取得・リダイレクトは Phase 2 と同じです。
 
 1. Phase 2 と同じ検証（`responseType` / `clientId` / `state` / `scope` / `userId`）を行う（変更なし）
-2. （追加）`input.codeChallenge` が空文字列、または `input.codeChallengeMethod` が `"S256"` でなければ、`invalid_request` を投げる
+2. （追加）`input.codeChallenge` が空文字列、または `input.codeChallengeMethod` が `"S256"` でなければ、`invalid_request` を`throw new Error()`する
 3. Phase 2 と同じく `findUser` でユーザーを取得し、`randomString(32)` で code を作る（変更なし）
 4. （変更）`setAuthCode` の保存内容に `codeChallenge` と `codeChallengeMethod` を追加する（他は Phase 2 と同じ）
 5. Phase 2 と同じく `code` と `state` を付けて返す（変更なし）

@@ -14,11 +14,11 @@ code を受け取って、access token を発行します。
 
 ### 実装手順
 
-1. `input.grantType` が `"authorization_code"` でなければ、`unsupported_grant_type` を投げる
-2. `input.clientId` が `"rp-demo"` でなければ、`invalid_client` を投げる
-3. `input.code` が空文字列なら、`invalid_request` を投げる
-4. `getAuthCode` で保存された code を取得する。見つからなければ `invalid_grant` を投げる
-5. 保存された `clientId` と `input.clientId` が一致しなければ、`invalid_grant` を投げる
+1. `input.grantType` が `"authorization_code"` でなければ、`unsupported_grant_type` を`throw new Error()`する
+2. `input.clientId` が `"rp-demo"` でなければ、`invalid_client` を`throw new Error()`する
+3. `input.code` が空文字列なら、`invalid_request` を`throw new Error()`する
+4. `getAuthCode` で保存された code を取得する。見つからなければ `invalid_grant` を`throw new Error()`する
+5. 保存された `clientId` と `input.clientId` が一致しなければ、`invalid_grant` を`throw new Error()`する
 6. `deleteAuthCode` で code を削除する
 7. `findUser` でユーザーを取得し、`createAccessToken` で access token を作る
 8. `access_token` / `token_type: "Bearer"` / `expires_in` を返す
@@ -65,31 +65,38 @@ const accessToken = await createAccessToken({ sub: user.id, scope: stored.scope.
 ```ts
 // TODO: Phase 1: OAuth
 const tokenLogic = async (input: TokenInput): Promise<TokenResponse> => {
-  return { // [!code --]
+  return {
+    // [!code --]
     access_token: "", // [!code --]
     token_type: "Bearer", // [!code --]
     expires_in: 0, // [!code --]
   }; // [!code --]
-  if (input.grantType !== "authorization_code") { // [!code ++]
+  if (input.grantType !== "authorization_code") {
+    // [!code ++]
     throw new Error("unsupported_grant_type"); // [!code ++]
   } // [!code ++]
 
-  if (input.clientId !== "rp-demo") { // [!code ++]
+  if (input.clientId !== "rp-demo") {
+    // [!code ++]
     throw new Error("invalid_client"); // [!code ++]
   } // [!code ++]
 
-  if (input.code === "") { // [!code ++]
+  if (input.code === "") {
+    // [!code ++]
     throw new Error("invalid_request"); // [!code ++]
   } // [!code ++]
 
   let stored: AuthCodePayload; // [!code ++]
-  try { // [!code ++]
+  try {
+    // [!code ++]
     stored = await getAuthCode(input.code); // [!code ++]
-  } catch { // [!code ++]
+  } catch {
+    // [!code ++]
     throw new Error("invalid_grant"); // [!code ++]
   } // [!code ++]
 
-  if (stored.clientId !== input.clientId) { // [!code ++]
+  if (stored.clientId !== input.clientId) {
+    // [!code ++]
     throw new Error("invalid_grant"); // [!code ++]
   } // [!code ++]
 
@@ -98,7 +105,8 @@ const tokenLogic = async (input: TokenInput): Promise<TokenResponse> => {
   const user = await findUser(stored.id); // [!code ++]
   const accessToken = await createAccessToken({ sub: user.id, scope: stored.scope.join(" ") }); // [!code ++]
 
-  return { // [!code ++]
+  return {
+    // [!code ++]
     access_token: accessToken, // [!code ++]
     token_type: "Bearer", // [!code ++]
     expires_in: ACCESS_TOKEN_TTL_SEC, // [!code ++]

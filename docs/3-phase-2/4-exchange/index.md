@@ -18,7 +18,7 @@ cookie に保存した state と、リダイレクトで返ってきた state �
 Phase 1 の `exchangeLogic` を前提に、以下の差分を追加します。token 取得・セッション保存・返却は Phase 1 と同じです。
 
 1. （変更）空文字検証を `input.code` のみに加えて `input.state` も対象にする
-2. （追加）`getAuthRequest` で保存した state を取得し、`input.state` と一致しなければエラーを投げる
+2. （追加）`getAuthRequest` で保存した state を取得し、`input.state` と一致しなければエラーを`throw new Error()`する
 3. （追加）`deleteAuthRequest` で保存した state を削除する
 4. Phase 1 と同じ `postRequest` で token endpoint に POST する（変更なし）
 5. Phase 1 と同じく `setUserSession` で access token を保存する（変更なし）

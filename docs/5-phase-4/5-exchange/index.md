@@ -17,7 +17,7 @@ JWKS を取得して ID Token を検証し、ユーザー情報（sub / name）�
 Phase 3 の `exchangeLogic` を前提に、以下の差分を追加します。既存の検証・token 取得は Phase 3 と同じです。
 
 1. Phase 3 と同じ検証・state 検証・`deleteAuthRequest`・`postRequest` を行う（変更なし）
-2. （追加）`token.id_token` が `undefined` なら、`missing id_token` を投げる
+2. （追加）`token.id_token` が `undefined` なら、`missing id_token` を`throw new Error()`する 
 3. （追加）`getRequest` で JWKS (`http://localhost:3001/.well-known/jwks.json`) を取得する
 4. （追加）`verifyIdToken(token.id_token, jwks.keys[0])` で ID Token を検証する
 5. （変更）`setUserSession` の保存内容を `accessToken` のみに加えて `id: claims.sub` と `name: claims.name` も保存する

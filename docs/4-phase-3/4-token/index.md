@@ -19,7 +19,7 @@ Phase 1 の `tokenLogic` を前提に、以下の差分を追加します。既�
 1. （変更）空文字検証を `input.code` のみに加えて `input.codeVerifier` も対象にする
 2. Phase 1 と同じく `getAuthCode` で code を取得する（変更なし）
 3. Phase 1 と同じく `clientId` の一致を確認する（変更なし）
-4. （追加）`createBase64EncodedHash(input.codeVerifier)` が保存された `codeChallenge` と一致しなければ、`invalid_grant` を投げる
+4. （追加）`createBase64EncodedHash(input.codeVerifier)` が保存された `codeChallenge` と一致しなければ、`invalid_grant` を`throw new Error()`する
 5. Phase 1 と同じく `deleteAuthCode`・`findUser`・`createAccessToken` を行う（変更なし）
 
 ### 使うユーティリティ関数
