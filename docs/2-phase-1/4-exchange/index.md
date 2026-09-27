@@ -75,17 +75,13 @@ await setUserSession(event, {
 const exchangeLogic = async (event: H3Event, input: ExchangeInput): Promise<ExchangeResponse> => {
   return { message: "" }; // [!code --]
 
-  if (input.code === "") {
-    // [!code ++]
+  if (input.code === "") { // [!code ++]
     throw new Error("missing code"); // [!code ++]
   } // [!code ++]
 
-  const token =
-    await postRequest<TokenResponse> // [!code ++]
-    (
+  const token = await postRequest<TokenResponse>( // [!code ++]
       "http://localhost:3001/token", // [!code ++]
-      {
-        // [!code ++]
+      { // [!code ++]
         grant_type: "authorization_code", // [!code ++]
         code: input.code, // [!code ++]
         client_id: "rp-demo", // [!code ++]
@@ -93,8 +89,7 @@ const exchangeLogic = async (event: H3Event, input: ExchangeInput): Promise<Exch
       true, // [!code ++]
     ); // [!code ++]
 
-  await setUserSession(event, {
-    // [!code ++]
+  await setUserSession(event, { // [!code ++]
     accessToken: token.access_token, // [!code ++]
   }); // [!code ++]
 
