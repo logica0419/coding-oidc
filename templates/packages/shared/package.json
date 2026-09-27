@@ -4,13 +4,15 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./server": "./src/server.ts"
   },
   "scripts": {
     "check": "bun -b tsc --noEmit"
   },
   "dependencies": {
     "@noble/hashes": "2.4.0",
+    "h3": "1.15.11",
     "ioredis": "6.0.0",
     "jose": "6.1.0"
   },

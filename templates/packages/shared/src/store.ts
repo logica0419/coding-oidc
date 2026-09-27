@@ -15,22 +15,18 @@ export const getRedis = (): Redis => {
 
 export interface AuthCodePayload {
   clientId: string;
-  redirectUri: string;
-  scope: string;
-  state: string;
-  codeChallenge: string;
-  codeChallengeMethod: string;
-  sub: string;
+  scope: string[];
+  id: string;
 }
 
 export interface SessionPayload {
-  sub: string;
-  name: string;
+  id?: string;
+  name?: string;
+  accessToken: string;
 }
 
-export interface LoginStatePayload {
-  codeVerifier: string;
-  nonce: string;
+export interface AuthRequestPayload {
+  state: string;
 }
 
 export interface StoredUser {
@@ -44,28 +40,34 @@ const key = (service: string, category: string, id: string): string => {
 
 const getOne = async <Value>(fullKey: string): Promise<Value | null> => {
   const raw = await getRedis().get(fullKey);
+
   if (raw === null) {
     return null;
   }
+
   return JSON.parse(raw) as Value;
 };
 
 const getOneOrThrow = async <Value>(fullKey: string, message: string): Promise<Value> => {
   const value = await getOne<Value>(fullKey);
+
   if (value === null) {
     throw new Error(message);
   }
+
   return value;
 };
 
 const collectValues = async <Value>(foundKeys: string[]): Promise<Value[]> => {
   const values = await Promise.all(foundKeys.map((itemKey) => getOne<Value>(itemKey)));
   const out: Value[] = [];
+
   for (const value of values) {
     if (value !== null) {
       out.push(value);
     }
   }
+
   return out;
 };
 
@@ -73,20 +75,18 @@ const getAll = async <Value>(pattern: string): Promise<Value[]> => {
   const redis = getRedis();
   const out: Value[] = [];
   let cursor = "0";
+
   do {
     const [next, foundKeys] = await redis.scan(cursor, "MATCH", pattern, "COUNT", 100);
     cursor = next;
     out.push(...(await collectValues<Value>(foundKeys)));
   } while (cursor !== "0");
+
   return out;
 };
 
 export const getAuthCode = (code: string): Promise<AuthCodePayload> => {
   return getOneOrThrow<AuthCodePayload>(key("op", "code", code), "auth code not found");
-};
-
-export const getAllAuthCodes = (): Promise<AuthCodePayload[]> => {
-  return getAll<AuthCodePayload>("op-code-*");
 };
 
 export const setAuthCode = async (code: string, payload: AuthCodePayload): Promise<void> => {
@@ -99,10 +99,6 @@ export const deleteAuthCode = async (code: string): Promise<void> => {
 
 export const getStoredSession = (sessionId: string): Promise<SessionPayload> => {
   return getOneOrThrow<SessionPayload>(key("op", "session", sessionId), "session not found");
-};
-
-export const getAllStoredSessions = (): Promise<SessionPayload[]> => {
-  return getAll<SessionPayload>("op-session-*");
 };
 
 export const setStoredSession = async (
@@ -121,20 +117,27 @@ export const deleteStoredSession = async (sessionId: string): Promise<void> => {
   await getRedis().del(key("op", "session", sessionId));
 };
 
-export const getLoginState = (state: string): Promise<LoginStatePayload> => {
-  return getOneOrThrow<LoginStatePayload>(key("rp", "login", state), "login state not found");
+export const getStoredAuthRequest = (authRequestId: string): Promise<AuthRequestPayload> => {
+  return getOneOrThrow<AuthRequestPayload>(
+    key("rp", "auth-request", authRequestId),
+    "auth request not found",
+  );
 };
 
-export const getAllLoginStates = (): Promise<LoginStatePayload[]> => {
-  return getAll<LoginStatePayload>("rp-login-*");
+export const setStoredAuthRequest = async (
+  authRequestId: string,
+  payload: AuthRequestPayload,
+): Promise<void> => {
+  await getRedis().set(
+    key("rp", "auth-request", authRequestId),
+    JSON.stringify(payload),
+    "EX",
+    CODE_TTL_SEC,
+  );
 };
 
-export const setLoginState = async (state: string, payload: LoginStatePayload): Promise<void> => {
-  await getRedis().set(key("rp", "login", state), JSON.stringify(payload), "EX", CODE_TTL_SEC);
-};
-
-export const deleteLoginState = async (state: string): Promise<void> => {
-  await getRedis().del(key("rp", "login", state));
+export const deleteStoredAuthRequest = async (authRequestId: string): Promise<void> => {
+  await getRedis().del(key("rp", "auth-request", authRequestId));
 };
 
 export const getStoredUser = (id: string): Promise<StoredUser> => {

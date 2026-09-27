@@ -1,13 +1,9 @@
 import { generateKeyPair, exportJWK, importJWK, SignJWT, jwtVerify } from "jose";
 
-import {
-  ALGORITHM,
-  KEY_ID,
-  OP_ISSUER,
-  CLIENT_ID,
-  ACCESS_TOKEN_TTL_SEC,
-  ID_TOKEN_TTL_SEC,
-} from "./constants";
+import { ALGORITHM, KEY_ID, ACCESS_TOKEN_TTL_SEC, ID_TOKEN_TTL_SEC } from "./constants";
+
+const OP_ISSUER = "http://localhost:3001";
+const CLIENT_ID = "rp-demo";
 
 interface CachedKeys {
   privateKey: CryptoKey;
@@ -21,12 +17,14 @@ const getSigningKeys = async (): Promise<CachedKeys> => {
   if (cached === undefined) {
     const { privateKey, publicKey } = await generateKeyPair(ALGORITHM);
     const publicJwk = await exportJWK(publicKey);
+
     cached = {
       privateKey,
       publicKey,
       publicJwk: { ...publicJwk, kid: KEY_ID, alg: ALGORITHM, use: "sig" },
     };
   }
+
   return cached;
 };
 
@@ -46,9 +44,11 @@ export interface JwksDocument {
 
 const assertClaim = (payload: Record<string, unknown>, name: string): string => {
   const value = payload[name];
+
   if (typeof value !== "string") {
     throw new Error("invalid token claims");
   }
+
   return value;
 };
 
@@ -62,12 +62,15 @@ const resolveVerifyKey = async (
   if (publicJwk !== undefined) {
     return importJWK(publicJwk, ALGORITHM);
   }
+
   const { publicKey } = await getSigningKeys();
+
   return publicKey;
 };
 
 export const createIdToken = async (claims: IdTokenClaims): Promise<string> => {
   const { privateKey } = await getSigningKeys();
+
   return new SignJWT({ name: claims.name })
     .setProtectedHeader({ alg: ALGORITHM, kid: KEY_ID })
     .setIssuer(OP_ISSUER)
@@ -87,6 +90,7 @@ export const verifyIdToken = async (
     issuer: OP_ISSUER,
     audience: CLIENT_ID,
   });
+
   return {
     sub: assertClaim(payload, "sub"),
     name: assertClaim(payload, "name"),
@@ -95,6 +99,7 @@ export const verifyIdToken = async (
 
 export const createAccessToken = async (claims: AccessTokenClaims): Promise<string> => {
   const { privateKey } = await getSigningKeys();
+
   return new SignJWT({ scope: claims.scope })
     .setProtectedHeader({ alg: ALGORITHM, kid: KEY_ID })
     .setIssuer(OP_ISSUER)
@@ -114,6 +119,7 @@ export const verifyAccessToken = async (
     issuer: OP_ISSUER,
     audience: OP_ISSUER,
   });
+
   return { sub: assertClaim(payload, "sub"), scope: assertClaim(payload, "scope") };
 };
 
