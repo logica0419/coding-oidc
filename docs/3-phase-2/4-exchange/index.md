@@ -76,14 +76,12 @@ postRequest<TokenResponse>(
 // TODO: Phase 1: OAuth
 // TODO: Phase 2: state
 const exchangeLogic = async (event: H3Event, input: ExchangeInput): Promise<ExchangeResponse> => {
-  if (input.code === "" || input.state === "") {
-    // [!code ++]
+  if (input.code === "" || input.state === "") { // [!code ++]
     throw new Error("missing code or state"); // [!code ++]
   } // [!code ++]
 
   const authRequest = await getAuthRequest(event); // [!code ++]
-  if (authRequest.state !== input.state) {
-    // [!code ++]
+  if (authRequest.state !== input.state) { // [!code ++]
     throw new Error("invalid state"); // [!code ++]
   } // [!code ++]
 

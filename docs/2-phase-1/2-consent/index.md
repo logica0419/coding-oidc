@@ -79,32 +79,27 @@ return { redirectTo: redirect.toString() };
 // TODO: Phase 2: state
 const consentLogic = async (input: ConsentInput): Promise<ConsentResponse> => {
   return { redirectTo: "" }; // [!code --]
-  if (input.responseType !== "code") {
-    // [!code ++]
+  if (input.responseType !== "code") { // [!code ++]
     throw new Error("unsupported_response_type"); // [!code ++]
   } // [!code ++]
 
-  if (input.clientId !== "rp-demo") {
-    // [!code ++]
+  if (input.clientId !== "rp-demo") { // [!code ++]
     throw new Error("invalid_client"); // [!code ++]
   } // [!code ++]
 
   const scopes = input.scope.split(" ").filter((scope) => scope !== ""); // [!code ++]
-  if (scopes.some((scope) => !["example"].includes(scope))) {
-    // [!code ++]
+  if (scopes.some((scope) => !["example"].includes(scope))) { // [!code ++]
     throw new Error("invalid_scope"); // [!code ++]
   } // [!code ++]
 
-  if (input.userId === "") {
-    // [!code ++]
+  if (input.userId === "") { // [!code ++]
     throw new Error("invalid_request"); // [!code ++]
   } // [!code ++]
 
   const user = await findUser(input.userId); // [!code ++]
   const code = randomString(32); // [!code ++]
 
-  await setAuthCode(code, {
-    // [!code ++]
+  await setAuthCode(code, { // [!code ++]
     clientId: input.clientId, // [!code ++]
     scope: scopes, // [!code ++]
     id: user.id, // [!code ++]
@@ -161,8 +156,7 @@ postRequest<ConsentResponse>("/consent", {
 // TODO: Phase 2: state
 const grantAccess = async (userId: string, input: ConsentInput): Promise<void> => {
   return; // [!code --]
-  const result = await postRequest<ConsentResponse>("/consent", {
-    // [!code ++]
+  const result = await postRequest<ConsentResponse>("/consent", { // [!code ++]
     response_type: input.responseType, // [!code ++]
     client_id: input.clientId, // [!code ++]
     scope: input.scope, // [!code ++]

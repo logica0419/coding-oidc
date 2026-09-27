@@ -71,8 +71,7 @@ const tokenLogic = async (input: TokenInput): Promise<TokenResponse> => {
     throw new Error("invalid_client");
   }
 
-  if (input.code === "" || input.codeVerifier === "") {
-    // [!code ++]
+  if (input.code === "" || input.codeVerifier === "") { // [!code ++]
     throw new Error("invalid_request");
   }
 
@@ -88,8 +87,7 @@ const tokenLogic = async (input: TokenInput): Promise<TokenResponse> => {
   }
 
   const expected = createBase64EncodedHash(input.codeVerifier); // [!code ++]
-  if (expected !== stored.codeChallenge) {
-    // [!code ++]
+  if (expected !== stored.codeChallenge) { // [!code ++]
     throw new Error("invalid_grant"); // [!code ++]
   } // [!code ++]
 

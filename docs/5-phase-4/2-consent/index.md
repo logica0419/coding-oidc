@@ -62,8 +62,7 @@ const consentLogic = async (input: ConsentInput): Promise<ConsentResponse> => {
   }
 
   const scopes = input.scope.split(" ").filter((scope) => scope !== "");
-  if (scopes.some((scope) => !["openid", "example"].includes(scope))) {
-    // [!code ++]
+  if (scopes.some((scope) => !["openid", "example"].includes(scope))) { // [!code ++]
     throw new Error("invalid_scope");
   }
 

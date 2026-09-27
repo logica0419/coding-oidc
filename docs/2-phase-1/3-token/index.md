@@ -65,38 +65,31 @@ const accessToken = await createAccessToken({ sub: user.id, scope: stored.scope.
 ```ts
 // TODO: Phase 1: OAuth
 const tokenLogic = async (input: TokenInput): Promise<TokenResponse> => {
-  return {
-    // [!code --]
+  return { // [!code --]
     access_token: "", // [!code --]
     token_type: "Bearer", // [!code --]
     expires_in: 0, // [!code --]
   }; // [!code --]
-  if (input.grantType !== "authorization_code") {
-    // [!code ++]
+  if (input.grantType !== "authorization_code") { // [!code ++]
     throw new Error("unsupported_grant_type"); // [!code ++]
   } // [!code ++]
 
-  if (input.clientId !== "rp-demo") {
-    // [!code ++]
+  if (input.clientId !== "rp-demo") { // [!code ++]
     throw new Error("invalid_client"); // [!code ++]
   } // [!code ++]
 
-  if (input.code === "") {
-    // [!code ++]
+  if (input.code === "") { // [!code ++]
     throw new Error("invalid_request"); // [!code ++]
   } // [!code ++]
 
   let stored: AuthCodePayload; // [!code ++]
-  try {
-    // [!code ++]
+  try { // [!code ++]
     stored = await getAuthCode(input.code); // [!code ++]
-  } catch {
-    // [!code ++]
+  } catch { // [!code ++]
     throw new Error("invalid_grant"); // [!code ++]
   } // [!code ++]
 
-  if (stored.clientId !== input.clientId) {
-    // [!code ++]
+  if (stored.clientId !== input.clientId) { // [!code ++]
     throw new Error("invalid_grant"); // [!code ++]
   } // [!code ++]
 
@@ -105,8 +98,7 @@ const tokenLogic = async (input: TokenInput): Promise<TokenResponse> => {
   const user = await findUser(stored.id); // [!code ++]
   const accessToken = await createAccessToken({ sub: user.id, scope: stored.scope.join(" ") }); // [!code ++]
 
-  return {
-    // [!code ++]
+  return { // [!code ++]
     access_token: accessToken, // [!code ++]
     token_type: "Bearer", // [!code ++]
     expires_in: ACCESS_TOKEN_TTL_SEC, // [!code ++]

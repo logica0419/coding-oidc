@@ -76,8 +76,7 @@ const consentLogic = async (input: ConsentInput): Promise<ConsentResponse> => {
     throw new Error("invalid_request");
   }
 
-  if (input.codeChallenge === "" || input.codeChallengeMethod !== "S256") {
-    // [!code ++]
+  if (input.codeChallenge === "" || input.codeChallengeMethod !== "S256") { // [!code ++]
     throw new Error("invalid_request"); // [!code ++]
   } // [!code ++]
 

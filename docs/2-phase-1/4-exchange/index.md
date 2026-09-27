@@ -80,11 +80,9 @@ const exchangeLogic = async (event: H3Event, input: ExchangeInput): Promise<Exch
     throw new Error("missing code"); // [!code ++]
   } // [!code ++]
 
-  const token = // [!code ++]
+  const token =
     await postRequest<TokenResponse> // [!code ++]
-    // [!code ++]
     (
-      // [!code ++]
       "http://localhost:3001/token", // [!code ++]
       {
         // [!code ++]

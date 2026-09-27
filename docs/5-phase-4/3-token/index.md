@@ -96,10 +96,8 @@ const tokenLogic = async (input: TokenInput): Promise<TokenResponse> => {
   const user = await findUser(stored.id);
   const accessToken = await createAccessToken({ sub: user.id, scope: stored.scope.join(" ") });
 
-  if (!stored.scope.includes("openid")) {
-    // [!code ++]
-    return {
-      // [!code ++]
+  if (!stored.scope.includes("openid")) { // [!code ++]
+    return { // [!code ++]
       access_token: accessToken, // [!code ++]
       token_type: "Bearer", // [!code ++]
       expires_in: ACCESS_TOKEN_TTL_SEC, // [!code ++]
@@ -107,8 +105,7 @@ const tokenLogic = async (input: TokenInput): Promise<TokenResponse> => {
   } // [!code ++]
 
   const idToken = await createIdToken({ sub: user.id, name: user.name }); // [!code ++]
-  return {
-    // [!code ++]
+  return { // [!code ++]
     access_token: accessToken, // [!code ++]
     token_type: "Bearer", // [!code ++]
     expires_in: ACCESS_TOKEN_TTL_SEC, // [!code ++]

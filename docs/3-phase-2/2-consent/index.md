@@ -80,8 +80,7 @@ const consentLogic = async (input: ConsentInput): Promise<ConsentResponse> => {
     throw new Error("invalid_client");
   }
 
-  if (input.state === "") {
-    // [!code ++]
+  if (input.state === "") { // [!code ++]
     throw new Error("invalid_request"); // [!code ++]
   } // [!code ++]
 
