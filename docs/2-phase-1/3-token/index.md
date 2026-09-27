@@ -2,66 +2,108 @@
 
 OP の token endpoint を実装します。
 
-`templates/packages/openid-provider/server/routes/token.post.ts` の `tokenLogic` を実装します。
+## 実装するファイル
+
+| ファイル                                                         | 関数         |
+| ---------------------------------------------------------------- | ------------ |
+| `templates/packages/openid-provider/server/routes/token.post.ts` | `tokenLogic` |
+
+## `token.post.ts` の `tokenLogic` を実装する
 
 code を受け取って、access token を発行します。
 
+### 実装手順
+
+1. `input.grantType` が `"authorization_code"` でなければ、`unsupported_grant_type` を投げる
+2. `input.clientId` が `"rp-demo"` でなければ、`invalid_client` を投げる
+3. `input.code` が空文字列なら、`invalid_request` を投げる
+4. `getAuthCode` で保存された code を取得する。見つからなければ `invalid_grant` を投げる
+5. 保存された `clientId` と `input.clientId` が一致しなければ、`invalid_grant` を投げる
+6. `deleteAuthCode` で code を削除する
+7. `findUser` でユーザーを取得し、`createAccessToken` で access token を作る
+8. `access_token` / `token_type: "Bearer"` / `expires_in` を返す
+
+### 使うユーティリティ関数
+
+| 関数                        | 役割                    |
+| --------------------------- | ----------------------- |
+| `getAuthCode(code)`         | 認可コードを取得する    |
+| `deleteAuthCode(code)`      | 認可コードを削除する    |
+| `findUser(userId)`          | ユーザーを取得する      |
+| `createAccessToken(claims)` | access token を発行する |
+
+### ヒント
+
+:::details ヒント1
+手順4の code 取得は、見つからない場合に `invalid_grant` を投げます。
+
 ```ts
-// TODO: Phase 1: OAuth
-const tokenLogic = async (input: TokenInput): Promise<TokenResponse> => {
-  const stored = await getAuthCode(input.code);
-  await deleteAuthCode(input.code);
-
-  const user = await findUser(stored.id);
-  const accessToken = await createAccessToken({ sub: user.id, scope: stored.scope.join(" ") });
-
-  return {
-    access_token: accessToken,
-    token_type: "Bearer",
-    expires_in: ACCESS_TOKEN_TTL_SEC,
-  };
-};
+let stored: AuthCodePayload;
+try {
+  stored = await getAuthCode(input.code);
+} catch {
+  throw new Error("invalid_grant");
+}
 ```
 
-::: details 参考実装
+:::
+
+:::details ヒント2
+手順7の access token 発行は、以下の引数で呼び出します。
+
+```ts
+const user = await findUser(stored.id);
+const accessToken = await createAccessToken({ sub: user.id, scope: stored.scope.join(" ") });
+```
+
+:::
+
+### 想定解答
+
+:::details 想定解答
 
 ```ts
 // TODO: Phase 1: OAuth
 const tokenLogic = async (input: TokenInput): Promise<TokenResponse> => {
-  if (input.grantType !== "authorization_code") {
-    throw new Error("unsupported_grant_type");
-  }
+  return { // [!code --]
+    access_token: "", // [!code --]
+    token_type: "Bearer", // [!code --]
+    expires_in: 0, // [!code --]
+  }; // [!code --]
+  if (input.grantType !== "authorization_code") { // [!code ++]
+    throw new Error("unsupported_grant_type"); // [!code ++]
+  } // [!code ++]
 
-  if (input.clientId !== "rp-demo") {
-    throw new Error("invalid_client");
-  }
+  if (input.clientId !== "rp-demo") { // [!code ++]
+    throw new Error("invalid_client"); // [!code ++]
+  } // [!code ++]
 
-  if (input.code === "") {
-    throw new Error("invalid_request");
-  }
+  if (input.code === "") { // [!code ++]
+    throw new Error("invalid_request"); // [!code ++]
+  } // [!code ++]
 
-  let stored: AuthCodePayload;
-  try {
-    stored = await getAuthCode(input.code);
-  } catch {
-    throw new Error("invalid_grant");
-  }
+  let stored: AuthCodePayload; // [!code ++]
+  try { // [!code ++]
+    stored = await getAuthCode(input.code); // [!code ++]
+  } catch { // [!code ++]
+    throw new Error("invalid_grant"); // [!code ++]
+  } // [!code ++]
 
-  if (stored.clientId !== input.clientId) {
-    throw new Error("invalid_grant");
-  }
+  if (stored.clientId !== input.clientId) { // [!code ++]
+    throw new Error("invalid_grant"); // [!code ++]
+  } // [!code ++]
 
-  await deleteAuthCode(input.code);
+  await deleteAuthCode(input.code); // [!code ++]
 
-  const user = await findUser(stored.id);
-  const accessToken = await createAccessToken({ sub: user.id, scope: stored.scope.join(" ") });
+  const user = await findUser(stored.id); // [!code ++]
+  const accessToken = await createAccessToken({ sub: user.id, scope: stored.scope.join(" ") }); // [!code ++]
 
-  return {
-    access_token: accessToken,
-    token_type: "Bearer",
-    expires_in: ACCESS_TOKEN_TTL_SEC,
-  };
-};
+  return { // [!code ++]
+    access_token: accessToken, // [!code ++]
+    token_type: "Bearer", // [!code ++]
+    expires_in: ACCESS_TOKEN_TTL_SEC, // [!code ++]
+  }; // [!code ++]
+}; // [!code ++]
 ```
 
 :::

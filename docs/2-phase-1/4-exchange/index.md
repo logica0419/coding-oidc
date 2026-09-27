@@ -75,17 +75,16 @@ await setUserSession(event, {
 const exchangeLogic = async (event: H3Event, input: ExchangeInput): Promise<ExchangeResponse> => {
   return { message: "" }; // [!code --]
 
-  if (input.code === "") {
-    // [!code ++]
+  if (input.code === "") { // [!code ++]
     throw new Error("missing code"); // [!code ++]
   } // [!code ++]
 
-  const token =
+  const token = // [!code ++]
     await postRequest<TokenResponse> // [!code ++]
-    (
+    // [!code ++]
+    ( // [!code ++]
       "http://localhost:3001/token", // [!code ++]
-      {
-        // [!code ++]
+      { // [!code ++]
         grant_type: "authorization_code", // [!code ++]
         code: input.code, // [!code ++]
         client_id: "rp-demo", // [!code ++]
@@ -93,13 +92,12 @@ const exchangeLogic = async (event: H3Event, input: ExchangeInput): Promise<Exch
       true, // [!code ++]
     ); // [!code ++]
 
-  await setUserSession(event, {
-    // [!code ++]
+  await setUserSession(event, { // [!code ++]
     accessToken: token.access_token, // [!code ++]
   }); // [!code ++]
 
   return { message: "交換できました！" }; // [!code ++]
-};
+}; // [!code ++]
 ```
 
 :::
@@ -140,7 +138,7 @@ postRequest<ExchangeResponse>("/exchange", { code });
 const exchangeCode = async (code: string): Promise<ExchangeResponse> => {
   return { message: "" }; // [!code --]
   return postRequest<ExchangeResponse>("/exchange", { code }); // [!code ++]
-};
+}; // [!code ++]
 ```
 
 :::
