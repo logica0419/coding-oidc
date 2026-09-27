@@ -10,6 +10,9 @@
   "categories": {
     "correctness": "error"
   },
+  "rules": {
+    "no-unused-vars": "off"
+  },
   "overrides": [
     {
       "files": ["**/*.vue"],

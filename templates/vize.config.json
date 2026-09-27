@@ -4,6 +4,12 @@
   "linter": {
     "preset": "happy-path"
   },
+  "typeChecker": {
+    "checkTemplateBindings": false
+  },
+  "languageServer": {
+    "typecheck": false
+  },
   "formatter": {
     "normalizeDirectiveShorthands": true,
     "singleAttributePerLine": true

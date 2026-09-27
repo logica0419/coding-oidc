@@ -67,6 +67,7 @@ const config: UserConfig<DefaultTheme.Config> = {
   ],
   srcDir: ".",
   lastUpdated: true,
+  ignoreDeadLinks: [/^http:\/\/localhost/],
   sitemap: {
     hostname: "https://coding-oidc.logica0419.dev",
     lastmodDateOnly: false,

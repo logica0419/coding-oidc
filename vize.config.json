@@ -3,6 +3,12 @@
   "linter": {
     "preset": "opinionated"
   },
+  "typeChecker": {
+    "checkTemplateBindings": false
+  },
+  "languageServer": {
+    "typecheck": false
+  },
   "formatter": {
     "normalizeDirectiveShorthands": true,
     "singleAttributePerLine": true
