@@ -14,7 +14,7 @@
     "dev:docs": "bun --filter 'docs' dev",
     "prebuild:templates": "bun install -p",
     "build:templates": "bun --filter 'templates' build",
-    "prebuild:docs": "bun install -p",
+    "prebuild:docs": "bun install",
     "build:docs": "bun --filter 'docs' build",
     "precheck": "bun install",
     "check": "bun run check:templates",
