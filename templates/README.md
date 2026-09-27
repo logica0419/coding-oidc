@@ -4,8 +4,8 @@
 
 ```plain
 .
-├── packages/openid-provider   OP (未完成版、http://localhost:3101)
-├── packages/relying-party     RP (未完成版、http://localhost:3100)
+├── packages/openid-provider   OP (未完成版、http://localhost:3001)
+├── packages/relying-party     RP (未完成版、http://localhost:3000)
 ├── packages/shared            共有型・定数
 └── .devcontainer              Dev Container 定義ファイル (作業コンテナ + Valkey 定義含む)
 ```
@@ -25,13 +25,13 @@ Dev Container で開くと、作業コンテナと Valkey が起動し、`bun in
 bun run dev
 ```
 
-- OP のみ起動 (<http://localhost:3101>)
+- OP のみ起動 (<http://localhost:3001>)
 
 ```bash
 bun run dev:op
 ```
 
-- RP のみ起動 (<http://localhost:3100>)
+- RP のみ起動 (<http://localhost:3000>)
 
 ```bash
 bun run dev:rp
@@ -47,4 +47,16 @@ bun run build
 
 ```bash
 bun run check
+```
+
+- リント
+
+```bash
+bun run lint
+```
+
+- フォーマット
+
+```bash
+bun run format
 ```
