@@ -14,8 +14,12 @@ Phase 3 の実装が完了した状態です。OAuth 認可コードフロー + 
 
 ## 目次
 
-- [5-1. ID Token を実装する](./1-id-token/)
-- [5-2. /me API を実装する](./2-me/)
+- [5-1. scope に openid を追加する](./1-authorization-url/)
+- [5-2. openid scope を許可する](./2-consent/)
+- [5-3. ID Token を発行する](./3-token/)
+- [5-4. JWKS endpoint を公開する](./4-jwks/)
+- [5-5. ID Token を検証してセッションに保存する](./5-exchange/)
+- [5-6. /me API を実装する](./6-me/)
 
 ## 実装後の状態確認
 
