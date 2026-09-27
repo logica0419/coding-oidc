@@ -14,7 +14,10 @@ Phase 1 の実装が完了した状態です。認可コードフローは動き
 
 ## 目次
 
-- [3-1. state を実装する](./1-state/)
+- [3-1. authorization URL に state を付ける](./1-authorization-url/)
+- [3-2. consent に state を追加する](./2-consent/)
+- [3-3. 認可ページから state を送信する](./3-authorize/)
+- [3-4. callback で state を検証する](./4-exchange/)
 
 ## 実装後の状態確認
 
