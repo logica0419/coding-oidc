@@ -2,6 +2,7 @@ import type { H3Event } from "h3";
 
 interface ExchangeInput {
   code: string;
+  state: string;
 }
 
 // TODO: Phase 1: OAuth
@@ -35,6 +36,7 @@ export default defineEventHandler(async (event) => {
 
   const input: ExchangeInput = {
     code: pickString(body, "code"),
+    state: pickString(body, "state"),
   };
 
   return exchangeLogic(event, input);

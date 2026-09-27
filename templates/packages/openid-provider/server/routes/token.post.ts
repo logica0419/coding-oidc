@@ -2,6 +2,7 @@ interface TokenInput {
   grantType: string;
   code: string;
   clientId: string;
+  codeVerifier: string;
 }
 
 // TODO: Phase 1: OAuth
@@ -23,6 +24,7 @@ export default defineEventHandler(async (event) => {
       grantType: pickString(body, "grant_type"),
       code: pickString(body, "code"),
       clientId: pickString(body, "client_id"),
+      codeVerifier: pickString(body, "code_verifier"),
     };
 
     return await tokenLogic(input);

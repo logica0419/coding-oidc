@@ -3,6 +3,8 @@ interface ConsentInput {
   clientId: string;
   scope: string;
   state: string;
+  codeChallenge: string;
+  codeChallengeMethod: string;
   userId: string;
 }
 
@@ -57,6 +59,8 @@ export default defineEventHandler(async (event) => {
       clientId: pickString(body, "client_id"),
       scope: pickString(body, "scope"),
       state: pickString(body, "state"),
+      codeChallenge: pickString(body, "code_challenge"),
+      codeChallengeMethod: pickString(body, "code_challenge_method"),
       userId: pickString(body, "user_id"),
     };
 

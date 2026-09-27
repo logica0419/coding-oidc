@@ -4,6 +4,8 @@ interface ConsentInput {
   clientId: string;
   scope: string;
   state: string;
+  codeChallenge: string;
+  codeChallengeMethod: string;
 }
 
 // TODO: Phase 1: OAuth
@@ -30,6 +32,8 @@ const input: ConsentInput = {
   clientId: pickString(route.query, "client_id"),
   scope: pickString(route.query, "scope"),
   state: pickString(route.query, "state"),
+  codeChallenge: pickString(route.query, "code_challenge"),
+  codeChallengeMethod: pickString(route.query, "code_challenge_method"),
 };
 
 const onClick = async (userId: string): Promise<void> => {

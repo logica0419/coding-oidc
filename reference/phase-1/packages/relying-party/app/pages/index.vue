@@ -5,6 +5,16 @@ const startLogin = async (): Promise<void> => {
   redirectTo(result.authorizeUrl);
 };
 
+const me = ref<MeResponse | null>(null);
+const meError = ref("");
+onMounted(async () => {
+  try {
+    me.value = await getRequest<MeResponse>("/me");
+  } catch (error) {
+    meError.value = error instanceof Error ? error.message : "me failed";
+  }
+});
+
 const exampleResult = ref("");
 const exampleError = ref("");
 const onExample = async (): Promise<void> => {
@@ -26,6 +36,8 @@ const onLogin = async (): Promise<void> => {
 <template>
   <div>
     <h2>Relying Party</h2>
+    <p v-if="meError !== ''">ユーザー情報の取得に失敗しました: {{ meError }}</p>
+    <p v-else-if="me !== null">現在のユーザー: {{ me.name }} ({{ me.sub }})</p>
     <button type="button" @click="onExample">/api/example にアクセスする</button>
     <pre>{{ exampleResult }}</pre>
     <p v-if="exampleError !== ''">{{ exampleError }}</p>
