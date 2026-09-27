@@ -14,7 +14,11 @@ Phase 2 の実装が完了した状態です。state による CSRF 対策はあ
 
 ## 目次
 
-- [4-1. PKCE を実装する](./1-pkce/)
+- [4-1. authorization URL に PKCE を付ける](./1-authorization-url/)
+- [4-2. consent に PKCE を追加する](./2-consent/)
+- [4-3. 認可ページから code_challenge を送信する](./3-authorize/)
+- [4-4. token endpoint で code_verifier を検証する](./4-token/)
+- [4-5. token リクエストに code_verifier を付ける](./5-exchange/)
 
 ## 実装後の状態確認
 
