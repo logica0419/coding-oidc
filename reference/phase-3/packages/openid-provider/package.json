@@ -1,0 +1,19 @@
+{
+  "name": "@coding-oidc/openid-provider",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun -b nuxt dev --port 3301",
+    "build": "bun -b nuxt prepare && bun -b nuxt build",
+    "preview": "bun -b nuxt preview --port 3301"
+  },
+  "dependencies": {
+    "@coding-oidc/shared": "workspace:*",
+    "@vizejs/nuxt": "0.428.1",
+    "nuxt": "4.5.2"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2"
+  }
+}
