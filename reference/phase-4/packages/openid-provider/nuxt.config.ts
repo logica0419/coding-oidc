@@ -9,7 +9,4 @@ export default defineNuxtConfig({
       "/.well-known/jwks.json": { proxy: "/well-known/jwks.json" },
     },
   },
-  vize: {
-    compiler: false,
-  },
 });

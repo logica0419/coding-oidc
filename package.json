@@ -35,6 +35,6 @@
     "oxlint": "1.83.0",
     "oxlint-tsgolint": "7.0.2003",
     "typescript": "7.0.2",
-    "vize": "0.428.1"
+    "vize": "0.429.0"
   }
 }

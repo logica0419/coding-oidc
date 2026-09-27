@@ -11,11 +11,11 @@
   },
   "dependencies": {
     "@coding-oidc/shared": "workspace:*",
-    "@vizejs/nuxt": "0.428.1",
+    "@vizejs/nuxt": "0.429.0",
     "nuxt": "4.5.2"
   },
   "devDependencies": {
     "typescript": "7.0.2",
-    "vize": "0.428.1"
+    "vize": "0.429.0"
   }
 }

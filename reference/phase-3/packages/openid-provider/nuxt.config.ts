@@ -4,7 +4,4 @@ export default defineNuxtConfig({
   devServer: { host: "0.0.0.0" },
   css: ["~/assets/main.css"],
   modules: ["@vizejs/nuxt"],
-  vize: {
-    compiler: false,
-  },
 });
