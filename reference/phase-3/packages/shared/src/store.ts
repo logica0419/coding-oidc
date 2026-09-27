@@ -16,9 +16,9 @@ export const getRedis = (): Redis => {
 export interface AuthCodePayload {
   clientId: string;
   scope: string[];
-  state: string;
-  codeChallenge: string;
-  codeChallengeMethod: string;
+  state?: string;
+  codeChallenge?: string;
+  codeChallengeMethod?: string;
   id: string;
 }
 
@@ -30,7 +30,7 @@ export interface SessionPayload {
 
 export interface AuthRequestPayload {
   state: string;
-  codeVerifier: string;
+  codeVerifier?: string;
 }
 
 export interface StoredUser {

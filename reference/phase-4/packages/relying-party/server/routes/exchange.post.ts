@@ -27,7 +27,7 @@ const exchangeLogic = async (event: H3Event, input: ExchangeInput): Promise<Exch
       grant_type: "authorization_code",
       code: input.code,
       client_id: "rp-demo",
-      code_verifier: authRequest.codeVerifier,
+      code_verifier: authRequest.codeVerifier ?? "",
     },
     true,
   );

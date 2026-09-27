@@ -24,8 +24,8 @@ export interface ExchangeResponse {
 }
 
 export interface MeResponse {
-  sub: string;
-  name: string;
+  sub?: string;
+  name?: string;
 }
 
 export const getRequest = async <Response>(
